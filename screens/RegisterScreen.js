@@ -10,7 +10,15 @@ export default class RegisterScreen extends React.Component{
         errorMessage : null
     }
     
-    
+    handleSingUp=()=>{
+        firebase.auth().createUserWithEmailAndPassword(this.state.email,this.state.password)
+        .then(userCredentials =>{
+            return userCredentials.user.updateProfile({
+                displayName:this.state.name
+            });
+        })
+        .catch(error => this.setState({errorMessage:error.message})); 
+    }
 
     
     render(){
